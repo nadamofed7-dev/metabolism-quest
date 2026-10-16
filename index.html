@@ -1,0 +1,129 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="color-scheme" content="light dark"><meta name="theme-color" content="#0f8f7e"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><title>Metabolism Quest</title>
+<style>
+:root{--bg:#eef6f4;--cd:#fff;--tx:#12302c;--mu:#58736f;--ac:#0f8f7e;--ok:#16a36a;--okb:#d9f7e8;--no:#e5484d;--nob:#ffe2e3;--ln:#cfe0dc;--ce:#fff6e0;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b1b1a;--cd:#14302d;--tx:#e6f6f2;--mu:#8fb3ad;--okb:#0f3d2b;--nob:#431a1d;--ln:#245049;--ce:#2a2a1c}}
+:root[data-theme="dark"]{--bg:#0b1b1a;--cd:#14302d;--tx:#e6f6f2;--mu:#8fb3ad;--okb:#0f3d2b;--nob:#431a1d;--ln:#245049;--ce:#2a2a1c}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.7 system-ui,-apple-system,"Segoe UI",Tahoma,"Noto Sans Arabic","Geeza Pro",Roboto,sans-serif;-webkit-text-size-adjust:100%}
+#app{max-width:680px;margin:auto;padding:14px calc(14px + env(safe-area-inset-right,0px)) 14px calc(14px + env(safe-area-inset-left,0px))}
+h1{font-size:1.45rem;margin:0}h3{margin:.6em 0}.mu{color:var(--mu)}
+.top{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px}
+.cd{background:var(--cd);border:1px solid var(--ln);border-radius:16px;padding:14px;margin:10px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+button{font:inherit;color:inherit;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none}
+.lv{background:var(--cd);border:2px solid var(--ln);border-radius:20px 20px 20px 4px;padding:12px;text-align:center}
+.lv:disabled{opacity:.45;cursor:not-allowed}.lv b{display:block;font-size:2rem}
+.b{background:var(--ac);color:#fff;border:0;border-radius:12px;padding:10px 18px;font-weight:700}
+.g{background:var(--cd);border:1px solid var(--ln);border-radius:10px;padding:6px 12px}
+.op{display:block;width:100%;text-align:start;background:var(--cd);border:2px solid var(--ln);border-radius:12px;padding:10px 14px;margin:7px 0}
+.ch,.dr{display:inline-block;background:var(--cd);border:2px solid var(--ln);border-radius:12px;padding:8px 12px;margin:4px}
+.op.ok{border-color:var(--ok);background:var(--okb)}.op.no,.dr.on{border-color:var(--no);background:var(--nob)}
+.cell{position:relative;border:3px dashed #e8a317;background:var(--ce);border-radius:30px;padding:32px 12px 12px;margin:12px 0;display:flex;flex-direction:column;align-items:center}
+.cell::before{content:attr(data-l);position:absolute;top:7px;right:18px;font-size:.8rem;color:var(--mu)}
+.nd{direction:ltr;background:var(--cd);border:2px solid var(--ln);border-radius:12px;padding:6px 14px;font-weight:700;text-align:center;transition:.3s}
+.nd.on{border-color:var(--ok);background:var(--okb);box-shadow:0 0 14px var(--ok);transform:scale(1.04)}
+.nd.x{border-color:var(--no);background:var(--nob)}.nd.x::after{content:" ⛔"}
+.ar{font-size:.78rem;color:var(--mu);unicode-bidi:plaintext;text-align:center;padding:2px 0}
+.sk{animation:sk .3s}@keyframes sk{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.bar{height:18px;background:var(--ln);border-radius:9px;overflow:hidden}.bar b{display:block;height:100%;background:var(--ok);transition:.2s}
+.rs{width:100%;max-width:300px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+.mol{position:absolute;transition:.5s;font-size:1.3rem;z-index:2;pointer-events:none}
+.cell::after{content:"🧬   🔬   ⚛️   🧫";position:absolute;left:0;right:0;bottom:6px;text-align:center;opacity:.13;font-size:1.8rem;pointer-events:none;animation:fl 6s ease-in-out infinite alternate}
+@keyframes fl{to{transform:translateY(-10px)}}
+.tb{height:8px;background:var(--ln);border-radius:4px;overflow:hidden;margin:6px 0}.tb b{display:block;height:100%;background:#e8a317;width:100%}
+.guide{display:flex;gap:8px;align-items:center;background:var(--cd);border:1px solid var(--ln);border-radius:14px;padding:8px 12px;margin:8px 0}
+.tf{display:flex;gap:10px}.tf button{flex:1;font-size:1.1rem;padding:14px;border-radius:14px;border:2px solid var(--ln);background:var(--cd)}
+#cv{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9}
+#tt{position:fixed;top:calc(env(safe-area-inset-top,0px) + 10px);left:50%;transform:translateX(-50%);background:var(--ac);color:#fff;padding:8px 16px;border-radius:20px;z-index:10;opacity:0;transition:.3s;font-weight:700;pointer-events:none}
+.lg{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 12px;margin-top:8px;font-size:.88rem}.lgi{display:inline-flex;align-items:center;gap:5px;direction:ltr}.lgi i{width:13px;height:13px;border-radius:4px;display:inline-block}
+:focus-visible{outline:3px solid #e8a317;outline-offset:2px}
+@media(hover:hover){.op:hover:not(:disabled),.ch:hover,.dr:hover,.lv:hover:not(:disabled),.g:hover{border-color:var(--ac)}.b:hover{filter:brightness(1.1)}}
+@media(min-width:900px){#app{max-width:860px}body{font-size:17px}.grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:380px){.nd{padding:6px 10px;font-size:.9rem}}
+</style></head><body><canvas id="cv"></canvas><div id="tt"></div><div id="app"></div>
+<script>
+const A=document.getElementById('app'),G=id=>document.getElementById(id),sh=a=>[...a].sort(()=>Math.random()-.5);
+let S={xp:0,d:{}},T=[],cur,mist=0,fk,pos,qs,qi;
+try{S=JSON.parse(localStorage.getItem('mq'))||S}catch(e){}
+const sv=()=>{try{localStorage.setItem('mq',JSON.stringify(S))}catch(e){}};
+const P={C6:[100,55],N1:[61,77],C2:[61,123],N3:[100,145],C4:[139,123],C5:[139,77],N7:[185,62],C8:[215,100],N9:[185,138]};
+const SR={N1:['Aspartate','#e84fb4'],C2:['N¹⁰-Formyl-THF','#16a36a'],N3:['Glutamine','#3b82f6'],C4:['Glycine','#ef4444'],C5:['Glycine','#ef4444'],C6:['CO₂','#8b5cf6'],N7:['Glycine','#ef4444'],C8:['N⁵,N¹⁰-Methenyl-THF','#16a36a'],N9:['Glutamine','#3b82f6']};
+const ring=h=>`<div style="text-align:center"><svg class="rs" viewBox="0 0 270 200"><path d="M100 55L61 77L61 123L100 145L139 123L139 77ZM139 77L185 62L215 100L185 138L139 123" fill="none" stroke="currentColor" stroke-width="3"/>`+Object.keys(P).map(k=>`<g ${h?'':`onclick="at('${k}')" style="cursor:pointer"`}><circle cx="${P[k][0]}" cy="${P[k][1]}" r="16" fill="${h?(k==h?'#e8a317':'#8a9a97'):SR[k][1]}"/><text x="${P[k][0]}" y="${P[k][1]}" dy="4" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">${k}</text></g>`).join('')+`</svg></div>`;
+const at=k=>G('src').innerHTML=`<b>${k}</b> ← ${SR[k][0]}`;
+const fh=(f,c)=>`<div class="cell" data-l="${c||''}">`+f.map((n,j)=>(j?`<div class="ar">⬇ ${n[1]||''}</div>`:'')+`<div class="nd">${n[0]}</div>`).join('')+'</div>';
+const SIM={
+salv:`<div class="cd" dir="ltr">${[['Adenine','APRT','AMP'],['Guanine','HGPRT','GMP'],['Hypoxanthine','HGPRT','IMP']].map(r=>`<div style="display:flex;align-items:center;gap:8px;margin:6px 0"><b class="nd" style="flex:1">${r[0]}</b><span class="ar" style="flex:1">${r[1]}<br>PRPP → PPi ➡</span><b class="nd on" style="flex:1">${r[2]}</b></div>`).join('')}</div><div class="cd"><b>أي خلية تصنّع الـ purine بـ de novo؟ اضغط:</b><br>${[['🫀 Liver','✅ الموقع الرئيسي للـ de novo synthesis'],['🩸 RBC','❌ لا تصنّع de novo ← تعتمد على Salvage'],['🛡️ Leukocyte','❌ تعتمد على Salvage (adenine, guanine → AMP, GMP)'],['🧠 Brain','❌ تعتمد على Salvage']].map(c=>`<button class="dr" onclick="G('cr').textContent='${c[1]}'">${c[0]}</button>`).join('')}<p id="cr" class="mu"></p></div>`,
+reg:`<div class="cd"><b>⚖️ حرّك مستوى AMP / ADP / GMP / GDP:</b><input type="range" id="rg" value="20" style="width:100%" oninput="rgu()"><div class="mu">نشاط PRPP synthetase</div><div class="bar"><b id="rb"></b></div><p id="rm"></p></div>`};
+function rgu(){const v=+G('rg').value;G('rb').style.width=(100-v)+'%';G('rm').textContent=v>66?'⛔ nucleotides كثيرة ← allosteric inhibition ← إنتاج أقل (Negative feedback)':v<34?'🟢 nucleotides قليلة ← الإنزيم نشط ← إنتاج أكثر':'🟡 توازن'}
+const L=[
+{i:'🍽️',t:'هضم Nucleoproteins',c:'🍽️ Small intestine',d:'DNA/RNA المرتبطة ببروتين تتفكك خطوة بخطوة حتى القواعد والسكر.',m:'💡 Nucleic acid → Oligo → Mononucleotide → Nucleoside → Base + Sugar',
+fl:[[['DNA / RNA'],['Oligonucleotides','Nucleases (DNase / RNase) — من البنكرياس'],['Mononucleotides','Exonucleases (Phosphodiesterase)'],['Nucleosides','Nucleotidases (تزيل الفوسفات)'],['Bases + Ribose/Deoxyribose','Nucleosidases (Nucleoside phosphorylases)']]],
+q:[['أي إنزيمات تحلل DNA/RNA إلى oligonucleotides؟','Nucleases (DNase, RNase)','Nucleotidases','Nucleosidases'],['من أين تُفرز الـ Nucleases؟','البنكرياس','المعدة','الكبد'],['Nucleotidases تعمل على؟','إزالة الفوسفات وتكوين nucleosides','فصل القاعدة عن السكر','تكوين oligonucleotides'],['ناتج Nucleosidases؟','Nitrogenous bases + ribose/deoxyribose','Nucleosides','Mononucleotides']]},
+{i:'⚛️',t:'مصادر الذرات (de novo)',d:'اضغط كل ذرة في حلقة الـ <bdi>purine</bdi> لتعرف مصدرها.<br>الـ <bdi>Pyrimidine</bdi> = <bdi>Carbamoyl phosphate</bdi> + <bdi>Aspartate</bdi>',m:'💡 <bdi>Glycine = C4, C5, N7</bdi> (متجاورة) · <bdi>Glutamine = N3, N9</bdi> · <bdi>THF = C2, C8</bdi>',ring:1,
+q:[['@N1|مصدر ذرة N1؟','Aspartate','Glycine','Glutamine','CO₂'],['@C6|مصدر ذرة C6؟','CO₂','Glycine','Formyl-THF','Aspartate'],['@N3|مصدر ذرة N3؟','Glutamine','Aspartate','Glycine','Formyl-THF'],['@C8|مصدر ذرة C8؟','Methenyl-THF','Glycine','CO₂','Glutamine'],['@N7|مصدر ذرة N7؟','Glycine','Glutamine','Aspartate','CO₂'],['@C2|مصدر ذرة C2؟','Formyl-THF','CO₂','Aspartate','Glycine'],['مصدرا ذرات حلقة Pyrimidine؟','Carbamoyl phosphate + Aspartate','Glycine + CO₂','Glutamine + Serine']]},
+{i:'🏭',t:'Purine de novo',c:'🫀 Liver cell — Cytoplasm',d:'الكبد هو الموقع الرئيسي. فعّل الـ inhibitors ثم شغّل المحاكاة وشاهد أين يتوقف المسار (اختصرنا Rx 6–9).',m:'💡 R5P → PRPP → … → IMP → AMP / GMP',
+fl:[[['Ribose-5-P (HMP shunt)'],['PRPP','PRPP synthetase (key enzyme) · ATP → AMP'],['5-Phosphoribosylamine','Reaction 2 · Glutamine → Glutamate (N9)'],['Formylglycinamide ribosyl-5-P','Rx 3–4 · Glycine + ATP + Methenyl-THF'],['Formylglycinamidine ribosyl-5-P','Reaction 5 · Condensation · Glutamine'],['IMP','Rx 6–9 · CO₂ + Aspartate + Formyl-THF'],['AMP + GMP','IMP→AMP: GTP + Asp · IMP→GMP: ATP + Gln']]],
+dr:[['Diazonorleucine',2],['Azaserine',4],['6-Mercaptopurine',6]],
+q:[['الـ key enzyme في بداية Purine synthesis؟','PRPP synthetase','HGPRT','Xanthine oxidase'],['Diazonorleucine (glutamine analog) يوقف التصنيع عند؟','Reaction 2','Reaction 5','تكوين AMP و GMP'],['Azaserine (glutamine analog) يوقف التصنيع عند؟','Reaction 5','Reaction 2','تكوين AMP و GMP'],['6-Mercaptopurine يمنع؟','تكوين AMP و GMP','Reaction 2','Reaction 5'],['تحويل IMP إلى AMP يحتاج؟','GTP + Aspartate','ATP + Glutamine','GTP + Glutamine'],['تحويل IMP إلى GMP يحتاج؟','ATP + Glutamine','GTP + Aspartate','ATP + Aspartate']]},
+{i:'♻️',t:'Salvage pathway',sim:'salv',d:'الجسم يعيد تدوير القواعد الحرة إلى nucleotides. تزداد بعد تلف الخلايا لأنها توفر طاقة، وتستعمل القواعد الناتجة من تكسير الخلايا، وتقلل تكوّن uric acid.',m:'💡 <bdi>APRT: Adenine</bdi> · <bdi>HGPRT: Guanine + Hypoxanthine</bdi>',
+q:[['Adenine → AMP بواسطة؟','APRT','HGPRT','Kinase'],['Guanine → GMP و Hypoxanthine → IMP بواسطة؟','HGPRT','APRT','PRPP synthetase'],['من يوفّر الـ ribose-phosphate في Salvage؟','PRPP (ويتحول إلى PPi)','Glutamine','Aspartate'],['خلايا لا تصنّع purine de novo؟','RBCs, Leukocytes, Brain','Liver','Kidney']]},
+{i:'⚖️',t:'Regulation',sim:'reg',d:'الـ PRPP synthetase هو الإنزيم المفتاحي. يُثبَّط allosterically بـ AMP, ADP, GMP, GDP فيمنع الإفراط. التصنيع يستهلك 6 ATP، وتصنيع GTP يحتاج ATP والعكس.',m:'💡 Excess purines inhibit more formation',
+q:[['ما الذي يثبّط PRPP synthetase؟','AMP, ADP, GMP, GDP','Glycine','Glutamine'],['نوع هذا التنظيم؟','Negative feedback inhibition','Positive feedback','Competitive'],['تصنيع الـ purine يستهلك؟','6 ATP','2 ATP','12 ATP'],['تصنيع GTP يحتاج؟','ATP (والعكس صحيح)','GTP فقط','NADH']]},
+{i:'🔥',t:'Purine catabolism',c:'🫀 Liver — Xanthine oxidase',d:'الـ A و G يتحللان إلى Uric acid الذي يُفرز في البول.',m:'💡 كل الطرق تلتقي عند Xanthine → Uric acid (XO)',
+fl:[[['AMP'],['Adenosine','Nucleotidase'],['Inosine','Adenosine deaminase'],['Hypoxanthine','Nucleosidase'],['Xanthine','Xanthine oxidase'],['Uric acid','Xanthine oxidase']],[['GMP'],['Guanosine','Nucleotidase'],['Guanine','Nucleosidase'],['Xanthine','Guanine deaminase'],['Uric acid','Xanthine oxidase']]],
+q:[['النهاية في الإنسان؟','Uric acid (urate)','Allantoin','Urea'],['الحيوانات الأخرى تحوله إلى؟','Allantoin بواسطة Uricase','Urea بواسطة Urease','Xanthine'],['Hypoxanthine → Xanthine → Uric acid؟','Xanthine oxidase','Guanine deaminase','Adenosine deaminase'],['Guanine → Xanthine؟','Guanine deaminase','Xanthine oxidase','Nucleosidase'],['Adenosine → Inosine؟','Adenosine deaminase','Nucleotidase','APRT'],['Uric acid الطبيعي في البلازما؟','رجال 3–7 · نساء 2–6 mg/dl','رجال 2–6 · نساء 3–7 mg/dl','رجال 7–10 · نساء 6–9 mg/dl'],['أين يوجد XO؟','الكبد والكلية والأمعاء','القلب والعضلات','المخ والرئة']]},
+{i:'🧪',t:'Pyrimidine synthesis',c:'🫀 Cell — Cytoplasm',d:'الـ key enzyme هو Carbamoyl phosphate synthetase II. يُحفَّز بـ PRPP ويُثبَّط بـ UTP (negative feedback). جرّب رفع UTP.',m:'💡 Gln + CO₂ + ATP → CP → Carbamoyl-Asp → Orotic → OMP → UMP → UTP',
+fl:[[['Glutamine + CO₂ + ATP'],['Carbamoyl phosphate','Carbamoyl phosphate synthetase II ⭐ key'],['Carbamoyl-aspartate','+ Aspartate'],['Orotic acid',''],['OMP','+ PP-ribose-P'],['UMP',''],['UDP','Kinase · ATP'],['UTP','Kinase · ATP']]],
+dr:[['UTP كثير (−ve feedback)',1]],
+q:[['Key enzyme في Pyrimidine synthesis؟','Carbamoyl phosphate synthetase II','PRPP synthetase','HGPRT'],['CPS II يُثبَّط بـ؟','UTP','PRPP','Glutamine'],['CPS II يُحفَّز بـ؟','PP-ribose-phosphate','UTP','AMP'],['Carbamoyl phosphate يتحد مع؟','Aspartate','Glycine','Serine'],['أول nucleotide في المسار؟','UMP','CMP','TMP']]},
+{i:'🧫',t:'Pyrimidine: تحويل وتحلل',c:'🫀 Cell — Nucleotide pool',d:'UTP يتحول إلى CTP، والـ deoxy nucleotides تنتج بـ Ribonucleotide reductase. الـ pyrimidines تتحلل بالكامل (على عكس purines).',m:'💡 تحلل: C, U, T → β-alanine & β-aminoisobutyrate → CO₂ + NH₃ + acetyl/succinyl-CoA',
+fl:[[['UMP'],['UDP','Kinase'],['UTP','Kinase'],['CTP','CTP synthetase']],[['UDP'],['dUDP','Ribonucleotide reductase'],['dUMP',''],['dTMP','Thymidylate synthase'],['dTDP',''],['dTTP','']]],
+q:[['UTP → CTP بواسطة؟','CTP synthetase','Thymidylate synthase','Ribonucleotide reductase'],['dUMP → dTMP بواسطة؟','Thymidylate synthase','CTP synthetase','Ribonucleotide reductase'],['إنزيم تكوين deoxy nucleotides؟','Ribonucleotide reductase','Thymidylate synthase','Nucleotidase'],['Cytosine, Uracil, Thymine تتحلل إلى؟','β-alanine و β-aminoisobutyrate','Uric acid','Allantoin'],['الفرق عن purines؟','تتحلل بالكامل ولا تتراكم','تُنتج uric acid','لا تتحلل']]},
+{i:'👑',t:'التحدي الأخير ⏱️❤️',boss:1,d:''}];
+const stp=()=>Object.values(S.d).reduce((a,b)=>a+b,0);
+function learn(){const l=L[cur];
+A.innerHTML=hd()+`<div class="cd">${fx(l.d)}<br><b>${fx(l.m||'')}</b></div>`+(l.ring?`<div class="cd">${ring()}<div id="src" class="mu" style="text-align:center">اضغط أي ذرة 👆</div><div class="lg">${[['#e84fb4','Aspartate'],['#ef4444','Glycine'],['#3b82f6','Glutamine'],['#8b5cf6','CO₂'],['#16a36a','Formyl-THF']].map(c=>`<span class="lgi"><i style="background:${c[0]}"></i>${c[1]}</span>`).join('')}</div></div>`:'')+(l.fl||[]).map(f=>fh(f,l.c)).join('')+(l.dr?`<div class="cd"><b>🧪 فعّل ثم شغّل المحاكاة:</b><br>`+l.dr.map(d=>`<button class="dr" data-b="${d[1]}" onclick="this.classList.toggle('on')">${d[0]}</button>`).join('')+'</div>':'')+(SIM[l.sim]||'')+`<div style="display:flex;gap:8px">${l.fl?'<button class="g" onclick="play()">▶ شغّل المحاكاة</button>':''}<button class="b" onclick="${l.fl?'build()':'quiz()'}">${l.fl?'التالي: ركّب المسار ➜':'ابدأ الاختبار ➜'}</button></div>`;
+if(l.sim=='reg')rgu();if(l.fl)setTimeout(play,300)}
+function build(){T.forEach(clearInterval);fk=0;bf()}
+function bf(){const l=L[cur],f=l.fl[fk];pos=0;A.innerHTML=hd()+`<div class="cd"><b>🛠️ ركّب المسار (${fk+1}/${l.fl.length}):</b> اضغط الجزيئات بالترتيب الصحيح من البداية.</div><div>`+sh(f.map((_,j)=>j)).map(j=>`<button class="ch" dir="ltr" id="c${j}" onclick="pk(${j})">${f[j][0]}</button>`).join('')+`</div><div class="cell" id="bd" data-l="${l.c||''}"></div>`}
+let H=3,cb=0,tm,tl,ft,fq,fi,fs,mute=0,AC;
+const snd=(f,d=.12,t='sine')=>{if(mute)return;try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();if(AC.state=='suspended')AC.resume();const o=AC.createOscillator(),g=AC.createGain();o.type=t;o.frequency.value=f;g.gain.value=.07;o.connect(g);g.connect(AC.destination);o.start();g.gain.exponentialRampToValueAtTime(.001,AC.currentTime+d);o.stop(AC.currentTime+d)}catch(e){}};
+const ding=()=>{snd(660);setTimeout(()=>snd(880),90)},buzz=()=>snd(130,.25,'sawtooth'),rnd=a=>a[Math.random()*a.length|0];
+const toast=m=>{const t=G('tt');t.textContent=m;t.style.opacity=1;clearTimeout(toast.h);toast.h=setTimeout(()=>t.style.opacity=0,1800)};
+function boom(n){const c=G('cv'),x=c.getContext('2d');c.width=innerWidth;c.height=innerHeight;const p=Array.from({length:n},()=>({x:innerWidth/2,y:innerHeight/2,vx:(Math.random()-.5)*14,vy:-Math.random()*14-3,c:`hsl(${Math.random()*360},85%,60%)`,s:5+Math.random()*5}));let f=0;(function r(){x.clearRect(0,0,c.width,c.height);p.forEach(a=>{a.x+=a.vx;a.y+=a.vy;a.vy+=.45;x.fillStyle=a.c;x.fillRect(a.x,a.y,a.s,a.s)});if(++f<80)requestAnimationFrame(r);else x.clearRect(0,0,c.width,c.height)})()}
+const RK=[[0,'طالب جديد 🥚'],[150,'مختبِر 🧪'],[400,'بيوكيميائي 🔬'],[800,'خبير نيوكليوتيدات 🧬'],[1500,'بروفيسور 👑']],rank=()=>RK.filter(r=>S.xp>=r[0]).pop()[1];
+const OKL=['برافو! 🔥','ذاكرة حديدية! 🧠','ممتاز يا دكتور! 🩺','صح 100%! 🎯'],NOL=['قريب! راجع الحيلة 📖','ركّز على الإنزيم!','الخطأ يعلّمك 💪'];
+const bo=()=>L[cur]&&L[cur].boss,hs=()=>(bo()?'❤️'.repeat(H)+'🖤'.repeat(3-H):'')+(cb>1?' 🔥×'+cb:''),upd=()=>{const e=G('ms');if(e)e.innerHTML=hs()};
+const hd=()=>`<div class="top"><button class="g" onclick="home()">🏠</button><b>${L[cur].i} ${L[cur].t}</b><span id="ms">${hs()}</span></div>`;
+function home(){T.forEach(clearInterval);clearInterval(tm);const n=RK.find(r=>r[0]>S.xp);A.innerHTML=`<div class="top"><h1>🧬 Metabolism Quest</h1><span><button class="g" onclick="mute=!mute;this.textContent=mute?'🔇':'🔊'">${mute?'🔇':'🔊'}</button> <button class="g" onclick="document.documentElement.dataset.theme=document.documentElement.dataset.theme=='dark'?'light':'dark'">🌓</button></span></div><div class="cd">🎖️ <b>${rank()}</b> &nbsp; ⭐ ${stp()} &nbsp; ⚡ ${S.xp} XP<br><span class="mu">${n?`باقي ${n[0]-S.xp} XP للرتبة: ${n[1]}`:'🏆 أعلى رتبة!'}<br>⌨️ على الكمبيوتر: <bdi>1–4</bdi> للاختيار · <bdi>Enter</bdi> للتالي</span></div><button class="b" style="width:100%;margin:4px 0" onclick="fast()">⚡ مراجعة سريعة: صح أم خطأ؟ (10 أسئلة)</button><div class="grid">`+L.map((l,i)=>{const lk=i&&!S.d[i-1];return `<button class="lv" ${lk?'disabled':''} onclick="lvl(${i})"><b>${lk?'🔒':l.i}</b>${i+1}. ${l.t}<br>${'⭐'.repeat(S.d[i]||0)||'&nbsp;'}</button>`}).join('')+'</div>'}
+function lvl(i){cur=i;mist=0;H=3;cb=0;L[i].boss?quiz():learn()}
+function miss(){mist++;cb=0;upd();if(!bo())return;H--;upd();if(H<1){fail();return 1}}
+function fail(){clearInterval(tm);snd(100,.5,'sawtooth');A.innerHTML=hd()+`<div class="cd" style="text-align:center"><div style="font-size:3rem">💔</div><h2>انتهت القلوب!</h2><p class="mu">راجع الحيلة وحاول مجددًا:</p><b>${fx(L[cur].m||'')}</b><p><button class="b" onclick="lvl(${cur})">🔁 أعد المحاولة</button></p></div>`}
+function play(){T.forEach(clearInterval);T=[];const bl=[...document.querySelectorAll('.dr.on[data-b]')].map(d=>+d.dataset.b),b=bl.length?Math.min(...bl):99;
+document.querySelectorAll('.cell').forEach(c=>{const n=[...c.querySelectorAll('.nd')];n.forEach(x=>x.className='nd');c.querySelectorAll('.mol').forEach(x=>x.remove());const m=document.createElement('i');m.className='mol';m.textContent='🔵';c.appendChild(m);let j=0;
+const id=setInterval(()=>{if(j>=n.length||j>=b){if(j>=b&&b<n.length){n[b].classList.add('x');m.textContent='💥';buzz()}else m.textContent='✨';clearInterval(id);return}const e=n[j++];e.classList.add('on');m.style.top=e.offsetTop+e.offsetHeight/2-12+'px';m.style.left=Math.max(2,e.offsetLeft-30)+'px';snd(300+j*60,.08)},650);T.push(id)})}
+function pk(j){const l=L[cur],f=l.fl[fk],b=G('c'+j);
+if(j==pos){ding();b.style.display='none';G('bd').insertAdjacentHTML('beforeend',(pos?`<div class="ar">⬇ ${f[j][1]||''}</div>`:'')+`<div class="nd on">${f[j][0]}</div>`);S.xp+=5;if(++pos==f.length){boom(40);setTimeout(()=>++fk<l.fl.length?bf():quiz(),1000)}}
+else{buzz();b.classList.add('sk');setTimeout(()=>b.classList.remove('sk'),400);miss()}}
+function quiz(){const l=L[cur];qs=l.boss?sh(L.flatMap(x=>x.q||[])).slice(0,6):l.q;qi=0;qz()}
+function qz(){clearInterval(tm);if(qi>=qs.length)return end();const q=qs[qi],m=q[0].match(/^@(\w+)\|(.*)/);
+A.innerHTML=hd()+`<div class="mu">سؤال ${qi+1}/${qs.length}${bo()?' · الأسرع يربح XP إضافي ⏱️</div><div class="tb"><b id="tb"></b></div>':'</div>'}`+(m?ring(m[1]):'')+`<h3>${fx(m?m[2]:q[0])}</h3>`+sh(q.slice(1)).map(o=>`<button class="op" data-c="${o==q[1]?1:0}" onclick="an(this)">${o}</button>`).join('')+'<div id="fb"></div>';
+if(bo()){tl=15;tm=setInterval(()=>{tl-=.1;G('tb').style.width=tl/15*100+'%';if(tl<=0)an(null)},100)}}
+function an(b){clearInterval(tm);const ok=b&&b.dataset.c=='1';let g=0;document.querySelectorAll('.op').forEach(x=>{x.disabled=1;if(x.dataset.c=='1')x.classList.add('ok')});
+if(ok){cb++;g=20+(bo()&&tl>10?10:0)+cb*2;S.xp+=g;ding();boom(25);if(cb==3)toast('🔥 كومبو ×3!');if(cb==5)toast('⚡ كومبو ×5 — لا تتوقف!')}
+else{if(b)b.classList.add('no');buzz();if(miss())return}
+G('fb').innerHTML=`<div class="guide"><span style="font-size:2rem">🧑‍🔬</span><span>${ok?rnd(OKL)+' +'+g+' XP':b?rnd(NOL):'⏰ انتهى الوقت!'}</span></div>${ok||bo()?'':'<div class="mu" style="margin-bottom:8px">'+fx(L[cur].m||'')+'</div>'}<button class="b" onclick="qi++;qz()">التالي ➜</button>`;upd()}
+function end(){const st=mist==0?3:mist==1?2:1,nx=cur<L.length-1,r0=rank();S.d[cur]=Math.max(S.d[cur]||0,st);S.xp+=st*10;sv();boom(130);snd(523,.15);setTimeout(()=>snd(784,.3),150);if(rank()!=r0)toast('🎖️ رتبة جديدة: '+rank());
+A.innerHTML=`<div class="cd" style="text-align:center"><div style="font-size:3rem">${'⭐'.repeat(st)}</div><h2>${nx?'أحسنت! أنهيت المرحلة':'🏆 أنت الآن خبير Purine & Pyrimidine!'}</h2><p>🎖️ ${rank()} · ⚡ ${S.xp} XP</p>${nx?`<button class="b" onclick="lvl(${cur+1})">المرحلة التالية ➜</button> `:''}<button class="g" onclick="lvl(${cur})">🔁 إعادة</button> <button class="g" onclick="home()">🏠 الخريطة</button></div>`}
+function fast(){fq=sh(L.flatMap(x=>x.q||[])).slice(0,10);fi=0;fs=0;cb=0;fn()}
+function fn(){clearInterval(tm);if(fi>=fq.length){S.xp+=fs*5;sv();boom(100);A.innerHTML=`<div class="cd" style="text-align:center"><div style="font-size:3rem">⚡</div><h2>النتيجة ${fs}/${fq.length}</h2><p>+${fs*5} XP · 🎖️ ${rank()}</p><button class="b" onclick="fast()">🔁 مرة أخرى</button> <button class="g" onclick="home()">🏠</button></div>`;return}
+const q=fq[fi];ft=Math.random()<.5;const o=ft?q[1]:rnd(q.slice(2));
+A.innerHTML=`<div class="top"><button class="g" onclick="home()">🏠</button><b>⚡ ${fi+1}/${fq.length}</b><span>🔥 ${cb}</span></div><div class="cd" style="text-align:center"><p class="mu">${fx(q[0].replace(/^@\w+\|/,''))}</p><h2 dir="auto">${o}</h2></div><div class="tf"><button onclick="fz(1)">✅ صح</button><button onclick="fz(0)">❌ خطأ</button></div><div id="fb" style="text-align:center"></div>`;}
+function fz(v){clearInterval(tm);document.querySelectorAll('.tf button').forEach(b=>b.disabled=1);const ok=v===(ft?1:0);
+if(ok){fs++;cb++;ding();if(cb==3)toast('🔥 كومبو ×3!')}else{cb=0;buzz()}
+G('fb').innerHTML=ok?rnd(OKL):'الإجابة الصحيحة: '+(ft?'صح ✅':'خطأ ❌');setTimeout(()=>{fi++;fn()},ok?600:1500)}
+const fx=s=>s.replace(/[A-Za-zβ0-9][^\u0600-\u06FF<>]*→[^\u0600-\u06FF<>]*/g,m=>'<bdi dir="ltr">'+m.trim()+'</bdi> ');
+document.addEventListener('keydown',e=>{if(e.ctrlKey||e.metaKey||e.altKey)return;const k=e.key,o=[...document.querySelectorAll('.op:not(:disabled),.tf button:not(:disabled)')];if(/^[1-4]$/.test(k)&&o[k-1]){o[k-1].click();e.preventDefault()}else if(k=='Enter'){const n=document.querySelector('#fb .b');if(n){n.click();e.preventDefault()}}});
+home();
+</script></body></html>
